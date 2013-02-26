@@ -3,15 +3,16 @@ var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
-
+var path = require('path');
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').concat(['gruntacular']).forEach(grunt.loadNpmTasks);
 
   // configurable paths
   var yeomanConfig = {
-    app: 'public/app',
-    dist: 'dist'
+    app: 'app/public',
+    dist: 'dist',
+    server: 'app'
   };
 
   try {
@@ -20,6 +21,18 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    express: {
+            livereload: {
+                options: {
+                    port: 3000,
+                    bases: [ path.resolve('<%= yeoman.app %>') , path.resolve('<%= yeoman.server %>/.public')],
+                    keepalive: false,
+                    supervisor: false,
+                    debug: false,
+                    server: path.resolve('./app/server')
+                }
+            }
+        },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -41,6 +54,12 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg}'
         ],
         tasks: ['livereload']
+      },
+      serverlive: {
+        files: [
+          '<%= yeoman.server %>/server.js'
+        ],
+        tasks: ['express']
       }
     },
     connect: {
@@ -52,7 +71,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               lrSnippet,
-              mountFolder(connect, '.tmp'),
+              mountFolder(connect, '<%= yeoman.server %>/.public'),
               mountFolder(connect, yeomanConfig.app)
             ];
           }
@@ -76,8 +95,8 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      dist: ['.tmp', '<%= yeoman.dist %>/*'],
-      server: '.tmp'
+      dist: ['<%= yeoman.server %>/.public', '<%= yeoman.dist %>/*'],
+      server: '<%= yeoman.server %>/.public'
     },
     jshint: {
       options: {
@@ -112,7 +131,7 @@ module.exports = function (grunt) {
     compass: {
       options: {
         sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '<%= yeoman.app %>/styles',
+        cssDir: '<%= yeoman.server %>/.public/styles',
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
@@ -271,21 +290,16 @@ module.exports = function (grunt) {
     'uglify'
   ]);
 
-  grunt.registerTask('nodeServer', 'custom server with express stack', function () {
-    var done = this.async();
-    grunt.log.writeln('Started web server on port 3000');
-    require('./app.js');
-  });
-
     grunt.registerTask('myserver', [
     'clean:server',
     'coffee:dist',
     'compass:server',
-    // 'livereload-start',
+    //'livereload-start',
     // 'connect:livereload',
     // 'open',
-    // 'watch',
-    'nodeServer'
+    'express',
+    'watch',
+    
   ]);
 
   grunt.registerTask('default', ['build']);

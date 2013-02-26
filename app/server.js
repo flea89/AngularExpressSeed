@@ -8,11 +8,12 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
-
 var app = express();
 
+
+console.log('Server in fase di config');
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  // app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -20,19 +21,26 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public/app')));
+
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/prova', function(req,res){
-  res.send("culo");
-})
+  res.send('ciao');
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
 });
+
+
+var server = http.createServer(app)
+
+
+
+exports = module.exports = server;
+
+exports.use = function() {
+  app.use.apply(app, arguments);
+};
