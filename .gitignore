@@ -1,6 +1,7 @@
 node_modules
 app/dist
-public/app/.tmp
+app/public/.tmp
 .sass-cache
-public/app/components
+app/public/components
 .DS_Store
+
