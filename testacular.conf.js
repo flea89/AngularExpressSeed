@@ -7,20 +7,20 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'app/components/angular/angular.js',
-  'app/components/angular-mocks/angular-mocks.js',
-  'app/scripts/*.js',
-  'app/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js'
+  'app/public/components/angular/angular.js',
+  'app/public/components/angular-mocks/angular-mocks.js',
+  'app/public/scripts/*.js',
+  'app/public/scripts/**/*.js',
+  'test/client/mock/**/*.js',
+  'test/client/spec/**/*.js'
 ];
 
 // list of files to exclude
 exclude = [];
 
 // test results reporter to use
-// possible values: dots || progress
-reporter = 'progress';
+// possible values: dots, progress, growl,...
+reporters = ['progress','growl'];
 
 // web server port
 port = 8080;
@@ -45,7 +45,7 @@ autoWatch = false;
 // - Opera
 // - Safari
 // - PhantomJS
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit

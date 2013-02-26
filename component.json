@@ -1,6 +1,8 @@
 {
-  "name": "public",
+  "name": "puppa",
   "version": "0.0.0",
+  "appPath": "app/public",
+  "testPath": "test/client/spec",
   "dependencies": {
     "angular": "~1.0.5",
     "json3": "~3.2.4",
@@ -13,4 +15,5 @@
     "angular-mocks": "~1.0.5",
     "angular-scenario": "~1.0.5"
   }
+
 }
