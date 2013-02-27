@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('publicApp', [])
+angular.module('puppaApp', [])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

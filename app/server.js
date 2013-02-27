@@ -11,6 +11,7 @@ var express = require('express')
 var app = express();
 
 
+
 console.log('Server in fase di config');
 app.configure(function(){
   // app.set('port', process.env.PORT || 3000);
@@ -30,7 +31,7 @@ app.configure('development', function(){
 
 app.get('/users', user.list);
 app.get('/prova', function(req,res){
-  res.send('ciao');
+  res.send('ciaoooooooo');
 
 });
 

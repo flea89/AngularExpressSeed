@@ -11,7 +11,6 @@ files = [
   'app/public/components/angular-mocks/angular-mocks.js',
   'app/public/scripts/*.js',
   'app/public/scripts/**/*.js',
-  'test/client/mock/**/*.js',
   'test/client/spec/**/*.js'
 ];
 
@@ -20,7 +19,7 @@ exclude = [];
 
 // test results reporter to use
 // possible values: dots, progress, growl,...
-reporters = ['progress','growl'];
+reporters = ['progress'];
 
 // web server port
 port = 8080;
@@ -33,7 +32,7 @@ colors = true;
 
 // level of logging
 // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-logLevel = LOG_INFO;
+logLevel = LOG_DEBUG;
 
 // enable / disable watching file and executing tests whenever any file changes
 autoWatch = false;

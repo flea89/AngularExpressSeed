@@ -26,13 +26,25 @@ module.exports = function (grunt) {
                 options: {
                     port: 3000,
                     bases: [ path.resolve('<%= yeoman.app %>') , path.resolve('<%= yeoman.server %>/.public')],
-                    keepalive: false,
+                    keepalive: true,
                     supervisor: false,
                     debug: false,
                     server: path.resolve('./app/server')
                 }
             }
         },
+    rerun: {
+      defaults: {
+        options : {
+          tasks : ['express']
+        }
+      },
+      test: {
+        options: {
+          tasks: ['express','testacular']
+        }
+      }
+    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -59,7 +71,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.server %>/server.js'
         ],
-        tasks: ['express']
+        tasks: ['testacular:unit:run','rerun:defaults:express:go']
       }
     },
     connect: {
@@ -110,7 +122,7 @@ module.exports = function (grunt) {
     testacular: {
       unit: {
         configFile: 'testacular.conf.js',
-        singleRun: true
+        singleRun: false
       }
     },
     coffee: {
@@ -266,10 +278,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'coffee',
-    'compass',
-    'connect:test',
-    'testacular'
+    'coffee:dist',
+    'compass:server',
+    'livereload-start',
+    // 'connect:livereload',
+    // 'open',
+    'rerun:test',
+    'watch',
   ]);
 
   grunt.registerTask('build', [
@@ -294,10 +309,10 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'compass:server',
-    //'livereload-start',
+    'livereload-start',
     // 'connect:livereload',
     // 'open',
-    'express',
+    'rerun',
     'watch',
     
   ]);

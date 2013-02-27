@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: ProvacontrollerCtrl', function () {
+describe('Controller: PippoCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('publicApp'));
+  beforeEach(module('puppaApp'));
 
-  var ProvacontrollerCtrl,
+  var PippoCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller) {
     scope = {};
-    ProvacontrollerCtrl = $controller('ProvacontrollerCtrl', {
+    PippoCtrl = $controller('PippoCtrl', {
       $scope: scope
     });
   }));
