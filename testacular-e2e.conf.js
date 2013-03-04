@@ -4,7 +4,7 @@ basePath = './';
 files = [
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
-  'test/e2e/**/*.js'
+  'test/client/e2e/**/*.js'
 ];
 
 reporters = ['progress','growl']
