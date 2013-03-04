@@ -4,4 +4,4 @@ app/public/.tmp
 .sass-cache
 app/public/components
 .DS_Store
-
+app/.public
